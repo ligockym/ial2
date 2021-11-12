@@ -3,6 +3,7 @@ project(ial_2021_du2 C)
 
 set(CMAKE_C_STANDARD 11)
 
+
 include_directories(iter)
 
 add_executable(btree
@@ -11,10 +12,21 @@ add_executable(btree
         iter/btree.c
         btree.h
         btree.c
-        iter/btree.c
         test_util.h
         test_util.c
         test.c
         )
 
+#[[
+include_directories(rec)
 
+add_executable(btree
+        rec/btree.c
+        btree.h
+        btree.c
+        test_util.h
+        test_util.c
+        test.c
+        )
+
+]]

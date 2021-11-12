@@ -153,14 +153,27 @@ void bst_replace_by_rightmost(bst_node_t *target, bst_node_t **tree) {
     target->value = max->value;
     target->key = max->key;
 
-    // kontrola, moze mat lavy podstrom -> vtedy pripoj lavy podstrom k beforeMax->right
-    if (max->left) {
-        beforeMax->right = max->left;
-    } else {
-        beforeMax->right = NULL;
-    }
+    if (!beforeMax) {  // je root s jednym potomkom
+        if (max->left) {
+            // ma lavy podstrom -> napoj ho na parenta
+            target->left = max->left;
+        } else {
+            target->left = NULL;
+        }
 
+    } else {
+        // zanorene
+        if (max->left) {
+            beforeMax->right = max->left;
+        } else {
+            beforeMax->right = NULL;
+        }
+    }
     free(max);
+
+    // kontrola, moze mat lavy podstrom -> vtedy pripoj lavy podstrom k beforeMax->right
+
+
 }
 
 /*
@@ -183,53 +196,66 @@ void bst_delete(bst_node_t **tree, char key) {
         if (key < ptr->key) {
             before_ptr = ptr;
             ptr = ptr->left;
+            continue;
         } else if (key > ptr->key) {
             before_ptr = ptr;
             ptr = ptr->right;
-        } else {
-            // nasiel hodnotu
+            continue;
+        }
 
-            // nema podstromy -> vymaz
-            if (ptr->left == NULL && ptr->right == NULL) {
-                if (before_ptr == NULL) {
-                    // je to koren a je prazdny
-                    free(*tree);
-                    *tree = NULL;
-                } else if (before_ptr->left == ptr) {
-                    // bol to lavy podstrom
-                    free(before_ptr->left);
-                    before_ptr->left = NULL;
-                } else if (before_ptr->right == ptr) {
-                    // bol to pravy podstrom
-                    free(before_ptr->right);
-                    before_ptr->right = NULL;
-                }
-                // ma oba podstromy
-            } else if (ptr->left != NULL && ptr->right != NULL) {
-                // najdi najpravejsieho v lavom podstrome (najblizsia hodnota) a premaz
-                bst_replace_by_rightmost(ptr, &ptr->left);
-            }
-                // ma iba lavy podstrom
-            else if (ptr->right == NULL) {
-                if (before_ptr->left == ptr) { // ak bol naviazany zlava -> presmeruj pointer
-                    before_ptr->left = ptr->left;
-                } else { // bol naviazany zprava -> presmeruj pointer
-                    before_ptr->right = ptr->left;
-                }
-                free(ptr);
-                ptr = NULL;
-                // ma iba pravy podstrom
-            } else {
-                if (before_ptr->left == ptr) { // bol naviazany zlava
-                    before_ptr->left = ptr->right;
-                } else {
-                    before_ptr->right = ptr->right;
-                }
-                free(ptr);
-                ptr = NULL;
+        // nasiel hodnotu
+        // nema podstromy -> vymaz
+        if (ptr->left == NULL && ptr->right == NULL) {
+            if (before_ptr == NULL) {
+                // je to koren a je prazdny
+                free(*tree);
+                *tree = NULL;
+            } else if (before_ptr->left == ptr) {
+                // bol to lavy podstrom
+                free(before_ptr->left);
+                before_ptr->left = NULL;
+            } else if (before_ptr->right == ptr) {
+                // bol to pravy podstrom
+                free(before_ptr->right);
+                before_ptr->right = NULL;
             }
             return;
         }
+
+        // ma oba podstromy
+        if (ptr->left != NULL && ptr->right != NULL) {
+            // najdi najpravejsieho v lavom podstrome (najblizsia hodnota) a premaz
+            bst_replace_by_rightmost(ptr, &ptr->left);
+            return;
+        }
+
+        // ma jeden podstrom
+        if (ptr->right == NULL) { // ma iba lavy podstrom
+            if (!before_ptr) {
+                // je root
+                *tree = (*tree)->left;
+            } else if (before_ptr->left == ptr) { // ak bol naviazany zlava -> presmeruj pointer
+                before_ptr->left = ptr->left;
+            } else { // bol naviazany zprava -> presmeruj pointer
+                before_ptr->right = ptr->left;
+            }
+            free(ptr);
+            ptr = NULL;
+            return;
+        }
+
+        // ma iba pravy podstrom
+        if (!before_ptr) {
+            // je root
+            *tree = (*tree)->right;
+        } else if (before_ptr->left == ptr) { // bol naviazany zlava
+            before_ptr->left = ptr->right;
+        } else {
+            before_ptr->right = ptr->right;
+        }
+        free(ptr);
+        ptr = NULL;
+        return;
     }
 }
 
@@ -259,7 +285,7 @@ void bst_dispose(bst_node_t **tree) {
         el = NULL;
     }
 
-    *tree=NULL;
+    *tree = NULL;
 }
 
 /*
@@ -379,7 +405,7 @@ void bst_postorder(bst_node_t *tree) {
 
     bst_leftmost_postorder(tree, &s1, &s1bool);
 
-    while(!stack_bst_empty(&s1)) {
+    while (!stack_bst_empty(&s1)) {
         bst_node_t *ptr = stack_bst_top(&s1);
         from_left = stack_bool_top(&s1bool);
         stack_bool_pop(&s1bool);

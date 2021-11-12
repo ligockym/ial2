@@ -18,6 +18,7 @@
  * možné toto detegovať vo funkcii.
  */
 void bst_init(bst_node_t **tree) {
+    *tree = NULL;
 }
 
 /*
@@ -30,7 +31,16 @@ void bst_init(bst_node_t **tree) {
  * Funkciu implementujte rekurzívne bez použitia vlastných pomocných funkcií.
  */
 bool bst_search(bst_node_t *tree, char key, int *value) {
-  return false;
+    if (tree == NULL) {
+        return false;
+    } else if (tree->key == key) {
+        *value = tree->value;
+        return true;
+    } else if (key < tree->key) {
+        bst_search(tree->left, key, value);
+    } else {
+        bst_search(tree->right, key, value);
+    }
 }
 
 /*
@@ -45,6 +55,17 @@ bool bst_search(bst_node_t *tree, char key, int *value) {
  * Funkciu implementujte rekurzívne bez použitia vlastných pomocných funkcií.
  */
 void bst_insert(bst_node_t **tree, char key, int value) {
+    // pridaj root
+    if (tree == NULL) {
+        bst_node_t *newNode;
+        newNode = malloc(sizeof(bst_node_t));
+        // kontrola mallocu
+        if (newNode == NULL) exit(1);
+        newNode->key = key;
+        newNode->value = value;
+        newNode->left = NULL;
+        newNode->right = NULL;
+    }
 }
 
 /*
@@ -109,6 +130,7 @@ void bst_preorder(bst_node_t *tree) {
  */
 void bst_inorder(bst_node_t *tree) {
 }
+
 /*
  * Postorder prechod stromom.
  *
