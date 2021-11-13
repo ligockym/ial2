@@ -6,6 +6,8 @@ set(CMAKE_C_STANDARD 11)
 
 include_directories(iter)
 
+#[[
+
 add_executable(btree
         iter/stack.h
         iter/stack.c
@@ -16,8 +18,7 @@ add_executable(btree
         test_util.c
         test.c
         )
-
-#[[
+]]
 include_directories(rec)
 
 add_executable(btree
@@ -29,4 +30,3 @@ add_executable(btree
         test.c
         )
 
-]]

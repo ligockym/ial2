@@ -6,6 +6,7 @@ Binary Search Tree - testing script
 [test_tree_dispose_empty] Dispose the tree
 
 [test_tree_search_empty] Search in an empty tree (A)
+Result: -1234
 
 [test_tree_insert_root] Insert an item (H,1)
 Binary tree structure:
@@ -14,6 +15,7 @@ Binary tree structure:
 
 
 [test_tree_search_root] Search in a single node tree (H)
+Result: 1
 Binary tree structure:
 
   +-[H,1]
@@ -64,6 +66,7 @@ Binary tree structure:
 
 
 [test_tree_search] Search for an item deeper in the tree (A)
+Result: 1
 Binary tree structure:
 
            +-[O,16]
@@ -98,6 +101,7 @@ Binary tree structure:
 
 
 [test_tree_search_missing] Search for a missing key (X)
+Result: -1234
 Binary tree structure:
 
            +-[O,16]
@@ -754,5 +758,275 @@ Binary tree structure:
      +-[B,2]
         |
         +-[A,3]
+
+
+[test_delete1] Delete H in H
+Binary tree structure:
+
+  +-[H,20]
+
+Binary tree structure:
+
+Tree is empty
+
+
+[test_delete2] Delete H in HA
+Binary tree structure:
+
+  +-[H,20]
+     |
+     +-[A,20]
+
+Binary tree structure:
+
+  +-[A,20]
+
+
+[test_delete2a] Delete A in HA
+Binary tree structure:
+
+  +-[H,20]
+     |
+     +-[A,20]
+
+Binary tree structure:
+
+  +-[H,20]
+
+
+[test_delete3] Delete H in HZ
+Binary tree structure:
+
+     +-[Z,20]
+     |
+  +-[H,20]
+
+Binary tree structure:
+
+  +-[Z,20]
+
+
+[test_delete3a] Delete Z in HZ
+Binary tree structure:
+
+     +-[Z,20]
+     |
+  +-[H,20]
+
+Binary tree structure:
+
+  +-[H,20]
+
+
+[test_delete4] Delete H in HAZ
+Binary tree structure:
+
+     +-[Z,20]
+     |
+  +-[H,20]
+     |
+     +-[A,20]
+
+Binary tree structure:
+
+     +-[Z,20]
+     |
+  +-[A,20]
+
+
+[test_delete5] Delete H in HAC
+Binary tree structure:
+
+  +-[H,20]
+     |
+     +-[C,20]
+        |
+        +-[A,20]
+
+Binary tree structure:
+
+  +-[C,20]
+     |
+     +-[A,20]
+
+
+[test_delete6] Delete H in HCAB
+Binary tree structure:
+
+  +-[H,20]
+     |
+     +-[C,20]
+        |
+        |  +-[B,20]
+        |  |
+        +-[A,20]
+
+Binary tree structure:
+
+  +-[C,20]
+     |
+     |  +-[B,20]
+     |  |
+     +-[A,20]
+
+
+[test_delete6a] Delete A in HCAB
+Binary tree structure:
+
+  +-[H,20]
+     |
+     +-[C,20]
+        |
+        |  +-[B,20]
+        |  |
+        +-[A,20]
+
+Binary tree structure:
+
+  +-[H,20]
+     |
+     +-[C,20]
+        |
+        +-[B,20]
+
+
+[test_delete6b] Delete B in HCAB
+Binary tree structure:
+
+  +-[H,20]
+     |
+     +-[C,20]
+        |
+        |  +-[B,20]
+        |  |
+        +-[A,20]
+
+Binary tree structure:
+
+  +-[H,20]
+     |
+     +-[C,20]
+        |
+        +-[A,20]
+
+
+[test_delete7] Delete H in HJT
+Binary tree structure:
+
+        +-[T,20]
+        |
+     +-[J,20]
+     |
+  +-[H,20]
+
+Binary tree structure:
+
+     +-[T,20]
+     |
+  +-[J,20]
+
+
+[test_delete7a] Delete J in HJT
+Binary tree structure:
+
+        +-[T,20]
+        |
+     +-[J,20]
+     |
+  +-[H,20]
+
+Binary tree structure:
+
+     +-[T,20]
+     |
+  +-[H,20]
+
+
+[test_delete8] Delete H in HJZ
+Binary tree structure:
+
+     +-[Z,20]
+     |  |
+     |  +-[J,20]
+     |
+  +-[H,20]
+
+Binary tree structure:
+
+  +-[Z,20]
+     |
+     +-[J,20]
+
+
+[test_delete8a] Delete J in HJZ
+Binary tree structure:
+
+     +-[Z,20]
+     |  |
+     |  +-[J,20]
+     |
+  +-[H,20]
+
+Binary tree structure:
+
+     +-[Z,20]
+     |
+  +-[H,20]
+
+
+[test_delete9] Delete H in HJTZ
+Binary tree structure:
+
+           +-[Z,20]
+           |
+        +-[T,20]
+        |
+     +-[J,20]
+     |
+  +-[H,20]
+
+Binary tree structure:
+
+        +-[Z,20]
+        |
+     +-[T,20]
+     |
+  +-[J,20]
+
+
+[test_delete9a] Delete J in HJTZ
+Binary tree structure:
+
+           +-[Z,20]
+           |
+        +-[T,20]
+        |
+     +-[J,20]
+     |
+  +-[H,20]
+
+Binary tree structure:
+
+        +-[Z,20]
+        |
+     +-[T,20]
+     |
+  +-[H,20]
+
+
+[test_delete10] Delete H in HCD
+Binary tree structure:
+
+  +-[H,20]
+     |
+     |  +-[D,20]
+     |  |
+     +-[C,20]
+
+Binary tree structure:
+
+     +-[D,20]
+     |
+  +-[C,20]
 
 
